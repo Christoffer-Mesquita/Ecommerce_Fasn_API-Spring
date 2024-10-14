@@ -7,6 +7,7 @@ import com.ecommerce.fashionshop.modules.dto.UserDTO;
 import com.ecommerce.fashionshop.modules.dto.LoginDTO;
 import com.ecommerce.fashionshop.model.User;
 import com.ecommerce.fashionshop.repository.UserRepository;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -40,5 +41,20 @@ public class UserService {
         } else {
             throw new RuntimeException("Email ou senha inválidos.");
         }
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public void deleteUser(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new RuntimeException("Usuario não encontrado com o ID: " + userId);
+        }
+        userRepository.deleteById(userId);
+    }
+
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
     }
 }
